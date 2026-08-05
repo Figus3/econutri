@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoNutri — Твой личный эко-план питания</title>
+    <!-- Подключаем красивый эко-шрифт Nunito -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Шапка сайта с динамической авторизацией -->
+    <header class="header">
+        <div class="container header__container">
+            <div class="logo">
+                <span class="logo__icon">🌿</span>
+                <span class="logo__text">EcoNutri</span>
+            </div>
+            <nav class="nav" id="nav-auth-container">
+                <button class="btn btn--secondary" id="open-auth-btn">Войти / Регистрация</button>
+                <div id="user-profile-nav" class="hidden">
+                    <span id="nav-username" style="font-weight: bold; margin-right: 10px; color: var(--color-primary-dark);"></span>
+                    <button class="btn btn--secondary" id="logout-btn" style="padding: 6px 12px; font-size: 13px;">Выйти</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main container">
+        
+        <!-- Блок авторизации -->
+        <section id="auth-section" class="auth-card hidden">
+            <div class="auth-toggle">
+                <button id="toggle-login" class="auth-toggle__btn active">Вход</button>
+                <button id="toggle-register" class="auth-toggle__btn">Регистрация</button>
+            </div>
+            
+            <form id="login-form" class="auth-form">
+                <input type="email" id="login-email" placeholder="Email" required class="input-field">
+                <input type="password" id="login-password" placeholder="Пароль" required class="input-field">
+                <button type="submit" class="btn btn--primary">Войти</button>
+            </form>
+
+            <form id="register-form" class="auth-form hidden">
+                <input type="text" id="reg-name" placeholder="Имя" required class="input-field">
+                <input type="email" id="reg-email" placeholder="Email" required class="input-field">
+                <input type="password" id="reg-password" placeholder="Пароль" required class="input-field">
+                <button type="submit" class="btn btn--primary">Зарегистрироваться</button>
+            </form>
+        </section>
+
+        <!-- Опросник / Анкета пользователя -->
+        <section id="survey-section" class="survey-card">
+            <h2 class="section-title">Создайте свой здоровый план питания 🍏</h2>
+            <p class="section-subtitle">Ответьте на несколько вопросов, чтобы система составила идеальное эко-меню.</p>
+            
+            <form id="survey-form" class="survey-form">
+                <div class="form-group">
+                    <label>Ваша цель:</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="goal" value="lose" checked>
+                            <span>Похудение</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="goal" value="maintain">
+                            <span>Поддержание тонуса</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="goal" value="gain">
+                            <span>Набор массы</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="weight">Текущий вес (кг):</label>
+                        <input type="number" id="weight" required min="30" max="200" class="input-field" placeholder="70">
+                    </div>
+                    <div class="form-group">
+                        <label for="target-weight">Целевой вес (кг):</label>
+                        <input type="number" id="target-weight" required min="30" max="200" class="input-field" placeholder="60">
+                    </div>
+                    <div class="form-group">
+                        <label for="height">Рост (см):</label>
+                        <input type="number" id="height" required min="100" max="250" class="input-field" placeholder="170">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Возраст:</label>
+                        <input type="number" id="age" required min="14" max="100" class="input-field" placeholder="25">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Пол:</label>
+                    <div class="radio-group">
+                        <label class="radio-label"><input type="radio" name="gender" value="female" checked> <span>Женский</span></label>
+                        <label class="radio-label"><input type="radio" name="gender" value="male"> <span>Мужской</span></label>
+                    </div>
+                </div>
+
+                <!-- Особенности питания (Галочки) -->
+                <div class="form-group">
+                    <label>⚠️ Особенности и ограничения в питании:</label>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pref-no-lactose">
+                            <span>🚫 Без лактозы</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pref-no-sugar">
+                            <span>🍯 Без сахара</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pref-no-nuts">
+                            <span>🥜 Без орехов</span>
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="pref-no-fish">
+                            <span>🐟 Без рыбы</span>
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn--primary btn--large">Приготовить меню ✨</button>
+            </form>
+        </section>
+
+        <!-- ЛИЧНЫЙ КАБИНЕТ И МЕНЮ -->
+        <section id="results-section" class="results-card hidden">
+            <div class="dashboard-header">
+                <div class="dashboard-title-group">
+                    <h2 class="section-title">🌿 Ваш Личный Эко-Кабинет</h2>
+                    <p id="weight-status" class="weight-status-sub"></p>
+                </div>
+                <button class="btn btn--secondary" id="reset-data">Заполнить анкету заново</button>
+            </div>
+
+            <!-- Виджеты прогресса -->
+            <div class="dashboard-grid" id="dashboard-widgets-grid">
+                <!-- ДОБАВИЛИ ID СЮДА ДЛЯ СКРЫТИЯ КАРТОЧКИ ВЕСА -->
+                <div class="widget-box" id="weight-widget">
+                    <h3>📊 Цель по весу</h3>
+                    <div class="weight-update-box">
+                        <input type="number" id="new-weight" class="input-field" placeholder="Новый вес">
+                        <button id="save-weight-btn" class="btn btn--primary">Записать</button>
+                    </div>
+                </div>
+                <div class="widget-box">
+                    <h3>💧 Норма воды</h3>
+                    <p class="water-counter"><span id="water-val">0</span> л / день</p>
+                    <p class="hint">Пейте чистую воду между приемами пищи.</p>
+                </div>
+                <div class="widget-box">
+                    <h3>🍎 Баланс БЖУ</h3>
+                    <p id="kcal-val" style="font-weight: 900; margin-bottom: 5px;">0 ккал</p>
+                    <div class="bju-container">
+                        <div class="bju-badge">Б: <span id="b-val">0</span>г</div>
+                        <div class="bju-badge">Ж: <span id="j-val">0</span>г</div>
+                        <div class="bju-badge">У: <span id="u-val">0</span>г</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Блок выбранных ограничений -->
+            <div class="ai-box">
+                <p>🛡️ <strong>Учтенные особенности здоровья:</strong> <span id="ai-user-pref" style="font-weight: 700; color: #27ae60;">Стандартное эко-меню</span></p>
+            </div>
+
+            <!-- Меню на неделю -->
+            <h3 class="menu-title">📅 Ваше эко-меню на неделю</h3>
+            <div id="weekly-menu-container" class="menu-grid">
+                <!-- Сюда JavaScript вставит дни недели -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
